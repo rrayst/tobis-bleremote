@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.HubFragment">
+
+    <TextView
+        android:id="@+id/text_hub_caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hub_caption"
+        android:textSize="@dimen/hub_caption_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"        />
+
+    <TextView
+        android:id="@+id/text_hub_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="name + mac"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_hub_caption"
+        />
+
+    <Button
+        android:id="@+id/button_toggleConnection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="⬤"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_hub_info" />
+
+    <ImageButton
+        android:id="@+id/imageButton_overflow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/actionOverflowButtonStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <LinearLayout
+        android:id="@+id/list_ports"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/button_toggleConnection"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

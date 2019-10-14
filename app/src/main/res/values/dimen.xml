@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="seekBarMargin">60dp</dimen>
+    <dimen name="seekBarHeight">24dp</dimen>
+
+    <dimen name="hub_caption_size">20sp</dimen>
+    <dimen name="motor_caption_size">14sp</dimen>
+</resources>

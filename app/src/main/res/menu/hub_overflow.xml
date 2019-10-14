@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_hub_info"
+        android:title="@string/hub_getinfo" />
+    <item
+        android:id="@+id/menu_hub_action"
+        android:title="@string/hub_triggeraction" />
+    <item
+        android:id="@+id/menu_hub_forget"
+        android:title="@string/hub_forget" />
+</menu>

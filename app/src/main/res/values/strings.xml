@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Tobis BLE Remote</string>
+
+    <string name="hub_caption">Hub</string>
+    <string name="hub_caption_p">Hub %s</string>
+
+    <string name="motor_caption">Motor</string>
+
+    <string name="motor_caption_p">Port %s: %s</string>
+    <string name="motor_description_l">L Motor</string>
+    <string name="motor_description_xl">XL Motor</string>
+    <string name="motor_description_unknown">unknown</string>
+    <string name="port_information_request">Port Information Request</string>
+    <string name="port_mode_information_request">Port Mode Information Request</string>
+    <string name="hub_getinfo">Get Info</string>
+    <string name="hub_triggeraction">Trigger Action</string>
+    <string name="hub_forget">Forget Hub</string>
+    <string name="forget_hub_while_connected">Hub cannot be forgotten, while it is connected.</string>
+    <string name="scan">Add New Hub</string>
+
+    <string name="warning_title">Warning</string>
+    <string name="warning_text">Issuing remote control commands might cause damage to your devices. You are using this app at your own risk. This app is provided without any warranties.</string>
+
+    <string name="about">About this App</string>
+    <string name="about_title">About this App</string>
+    <string name="about_text">This app is provided to you using the MIT license.\n\nThis app as well as its source code of this app is shared with you under the MIT license. The license as well as the source code of this app is available at <a href="https://github.com/rrayst/tobis-bleremote">https://github.com/rrayst/tobis-bleremote</a> . It is copyright ©2019 Tobias Polley.\n\nHuge thanks go to LEGO® at <a href="https://github.com/LEGO/lego-ble-wireless-protocol-docs">https://github.com/LEGO/lego-ble-wireless-protocol-docs</a> where the Bluetooth communication protocol is documented.\n\nLEGO is a trademark and copyright of the LEGO Group. ©2019 The LEGO Group.</string>
+</resources>
