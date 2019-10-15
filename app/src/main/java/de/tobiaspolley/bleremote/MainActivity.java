@@ -16,6 +16,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -94,9 +96,7 @@ public class MainActivity extends AppCompatActivity implements HubObserver {
         connectivityManager = ConnectivityManager.getInstance(getApplicationContext());
 
         for (Integer index : connectivityManager.getIndexes()) {
-            Fragment fragment = getSupportFragmentManager().findFragmentByTag("hub" + index);
-            if (fragment == null)
-                getSupportFragmentManager().beginTransaction().add(R.id.list_hubs, HubFragment.newInstance(index)).commit();
+            onHubAdded(index);
         }
         connectivityManager.addHubObserver(this);
 
@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements HubObserver {
         Fragment fragment = getSupportFragmentManager().findFragmentByTag("hub" + index);
         if (fragment == null)
             getSupportFragmentManager().beginTransaction().add(R.id.list_hubs, HubFragment.newInstance(index), "hub" + index).commit();
+        updateScanButtonVisibility();
     }
 
     @Override
@@ -147,6 +148,12 @@ public class MainActivity extends AppCompatActivity implements HubObserver {
 
         if (fragment != null)
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+
+        updateScanButtonVisibility();
+    }
+
+    private void updateScanButtonVisibility() {
+        findViewById(R.id.button_scan).setVisibility(((LinearLayout)findViewById(R.id.list_hubs)).getChildCount() == 0 ? View.GONE : View.VISIBLE);
     }
 
     private class WarningChecker extends AsyncTask<Void, Void, Boolean> {
