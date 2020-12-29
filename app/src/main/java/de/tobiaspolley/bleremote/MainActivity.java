@@ -138,8 +138,14 @@ public class MainActivity extends AppCompatActivity implements HubObserver {
     public void onHubAdded(int index) {
         Fragment fragment = getSupportFragmentManager().findFragmentByTag("hub" + index);
         if (fragment == null)
-            getSupportFragmentManager().beginTransaction().add(R.id.list_hubs, HubFragment.newInstance(index), "hub" + index).commit();
-        updateScanButtonVisibility();
+            getSupportFragmentManager().beginTransaction().add(R.id.list_hubs, HubFragment.newInstance(index), "hub" + index)
+                    .runOnCommit(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateScanButtonVisibility();
+                        }
+                    })
+                    .commit();
     }
 
     @Override
@@ -147,13 +153,18 @@ public class MainActivity extends AppCompatActivity implements HubObserver {
         Fragment fragment = getSupportFragmentManager().findFragmentByTag("hub" + index);
 
         if (fragment != null)
-            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-
-        updateScanButtonVisibility();
+            getSupportFragmentManager().beginTransaction().remove(fragment)
+                    .runOnCommit(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateScanButtonVisibility();
+                        }
+                    })
+                    .commit();
     }
 
     private void updateScanButtonVisibility() {
-        findViewById(R.id.button_scan).setVisibility(((LinearLayout)findViewById(R.id.list_hubs)).getChildCount() == 0 ? View.GONE : View.VISIBLE);
+        findViewById(R.id.button_scan).setVisibility(((LinearLayout)findViewById(R.id.list_hubs)).getChildCount() == 0 ? View.VISIBLE : View.GONE);
     }
 
     private class WarningChecker extends AsyncTask<Void, Void, Boolean> {
