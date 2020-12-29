@@ -7,10 +7,12 @@ import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 
 import java.util.UUID;
 
 import de.tobiaspolley.bleremote.jobs.Disconnect;
+import de.tobiaspolley.bleremote.jobs.GotoAbsolutePositionCommand;
 import de.tobiaspolley.bleremote.jobs.Job;
 import de.tobiaspolley.bleremote.jobs.PortInformationRequest;
 import de.tobiaspolley.bleremote.jobs.PortModeInformationRequest;
@@ -173,6 +175,41 @@ public class TheBluetoothGattCallback extends BluetoothGattCallback {
                 characteristic.setWriteType(1);
                 check(gatt.writeCharacteristic(characteristic));
                 System.out.println("issued start-power");
+                return;
+            }
+
+            if (job instanceof GotoAbsolutePositionCommand) {
+
+                GotoAbsolutePositionCommand mj = (GotoAbsolutePositionCommand) job;
+                byte channel = (byte) (mj.getMotor());
+                int value =  (Math.abs(mj.getPosition() - STOP) * 100 / 256);
+                if (mj.getPosition() < STOP)
+                    value = -value;
+
+                characteristic.setValue(new byte[]{
+                        0x0e /* message length */,
+                        0x00 /* hub id */,
+                        (byte)0x81 /* message type: Port Output Command */,
+                        channel,
+                        ((GotoAbsolutePositionCommand) job).getStartupCompletion(),
+                        (byte)0x0D /* subcommand: StartPower(Power) */,
+                        // int32 absPos
+                        (byte)value,
+                        (byte)(value >>> 8),
+                        (byte)(value >>> 16),
+                        (byte)(value >>> 24),
+                        // int8 speed (0..100)
+                        (byte)mj.getSpeed(),
+                        // int8 maxPower (0..100)
+                        (byte)mj.getMaxPower(),
+                        // int8 endState
+                        (byte)mj.getEndState(),
+                        // use profile [0 = DO NOT USE, 1 = USE PROFILE] / (0x0000000? acc profile 0x000000?0 dec profile)
+                        0x11
+                });
+                characteristic.setWriteType(1);
+                check(gatt.writeCharacteristic(characteristic));
+                System.out.println("issued goto-absolute-position");
                 return;
             }
 

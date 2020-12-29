@@ -13,6 +13,8 @@
     <string name="motor_description_unknown">unknown</string>
     <string name="port_information_request">Port Information Request</string>
     <string name="port_mode_information_request">Port Mode Information Request</string>
+    <string name="toggle_servo">Toggle Servo Mode</string>
+    <string name="motor_info_servo">Servo</string>
     <string name="hub_getinfo">Get Info</string>
     <string name="hub_triggeraction">Trigger Action</string>
     <string name="hub_forget">Forget Hub</string>

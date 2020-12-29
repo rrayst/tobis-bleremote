@@ -19,6 +19,7 @@ import java.util.function.Function;
 
 import de.tobiaspolley.bleremote.connectivity.ConnectivityManager;
 import de.tobiaspolley.bleremote.R;
+import de.tobiaspolley.bleremote.jobs.GotoAbsolutePositionCommand;
 import de.tobiaspolley.bleremote.jobs.PortInformationRequest;
 import de.tobiaspolley.bleremote.jobs.PortModeInformationRequest;
 import de.tobiaspolley.bleremote.jobs.StartPowerCommand;
@@ -39,9 +40,10 @@ public class MotorFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
 
     private int index;
     private int port;
+    private boolean servoMode;
 
     private SeekBar seekBar;
-    private TextView captionText;
+    private TextView captionText, infoText;
     private ConnectivityManager connectivityManager;
 
     public MotorFragment() {
@@ -77,6 +79,7 @@ public class MotorFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
         seekBar.setOnSeekBarChangeListener(this);
 
         captionText = inflate.findViewById(R.id.text_motor_caption);
+        infoText = inflate.findViewById(R.id.text_motor_info);
         String description;
         switch (connectivityManager.getPortIOType(index, port)) {
             case IOTYPE_CONTROLPLUS_MOTOR_L:
@@ -87,11 +90,13 @@ public class MotorFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
                 break;
             case IOTYPE_CONTROLPLUS_MOTOR_SERVO:
                 description = getString(R.string.motor_description_servo);
+                servoMode = true;
                 break;
             default:
                 description = getString(R.string.motor_description_unknown);
                 break;
         }
+        updateServoUI();
         captionText.setText(String.format(getString(R.string.motor_caption_p), ""+(char)('A' + port), description));
 
         ImageButton overflowImageButton = inflate.findViewById(R.id.imageButton_overflow);
@@ -111,6 +116,8 @@ public class MotorFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
                             case R.id.menu_motor_pmir:
                                 pmir(menuItem.getActionView());
                                 return true;
+                            case R.id.menu_motor_toggle_servo:
+                                toggleServo(menuItem.getActionView());
                         }
                         return false;
                     }
@@ -121,6 +128,10 @@ public class MotorFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
         });
 
         return inflate;
+    }
+
+    private void updateServoUI() {
+        infoText.setText(servoMode ? getString(R.string.motor_info_servo) : "");
     }
 
     public void pir(View view) {
@@ -149,13 +160,21 @@ public class MotorFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
         });
     }
 
+    public void toggleServo(View view) {
+        servoMode = !servoMode;
+        updateServoUI();
+    }
+
     public void halt(View view) {
         seekBar.setProgress(STOP);
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        connectivityManager.enqueue(index, new StartPowerCommand(port, progress));
+        if (servoMode)
+            connectivityManager.enqueue(index, new GotoAbsolutePositionCommand(port, progress, GotoAbsolutePositionCommand.ENDSTATE_BREAK));
+        else
+            connectivityManager.enqueue(index, new StartPowerCommand(port, progress));
     }
 
     @Override

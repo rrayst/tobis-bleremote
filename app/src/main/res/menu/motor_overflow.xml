@@ -5,4 +5,7 @@
     <item
         android:id="@+id/menu_motor_pmir"
         android:title="@string/port_mode_information_request" />
+    <item
+        android:id="@+id/menu_motor_toggle_servo"
+        android:title="@string/toggle_servo" />
 </menu>
