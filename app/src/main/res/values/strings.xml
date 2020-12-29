@@ -9,6 +9,7 @@
     <string name="motor_caption_p">Port %s: %s</string>
     <string name="motor_description_l">L Motor</string>
     <string name="motor_description_xl">XL Motor</string>
+    <string name="motor_description_servo">Servo Motor</string>
     <string name="motor_description_unknown">unknown</string>
     <string name="port_information_request">Port Information Request</string>
     <string name="port_mode_information_request">Port Mode Information Request</string>

@@ -28,6 +28,7 @@ import de.tobiaspolley.bleremote.structs.ModeInformationType;
 import static de.tobiaspolley.bleremote.Util.runEnumChooser;
 import static de.tobiaspolley.bleremote.Util.runInputDialog;
 import static de.tobiaspolley.bleremote.responses.PortConnectedResponse.IOTYPE_CONTROLPLUS_MOTOR_L;
+import static de.tobiaspolley.bleremote.responses.PortConnectedResponse.IOTYPE_CONTROLPLUS_MOTOR_SERVO;
 import static de.tobiaspolley.bleremote.responses.PortConnectedResponse.IOTYPE_CONTROLPLUS_MOTOR_XL;
 
 public class MotorFragment extends Fragment implements SeekBar.OnSeekBarChangeListener {
@@ -83,6 +84,9 @@ public class MotorFragment extends Fragment implements SeekBar.OnSeekBarChangeLi
                 break;
             case IOTYPE_CONTROLPLUS_MOTOR_XL:
                 description = getString(R.string.motor_description_xl);
+                break;
+            case IOTYPE_CONTROLPLUS_MOTOR_SERVO:
+                description = getString(R.string.motor_description_servo);
                 break;
             default:
                 description = getString(R.string.motor_description_unknown);

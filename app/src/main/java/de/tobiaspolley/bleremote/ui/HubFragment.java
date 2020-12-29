@@ -37,6 +37,7 @@ import de.tobiaspolley.bleremote.structs.Property;
 
 import static de.tobiaspolley.bleremote.Util.runEnumChooser;
 import static de.tobiaspolley.bleremote.responses.PortConnectedResponse.IOTYPE_CONTROLPLUS_MOTOR_L;
+import static de.tobiaspolley.bleremote.responses.PortConnectedResponse.IOTYPE_CONTROLPLUS_MOTOR_SERVO;
 import static de.tobiaspolley.bleremote.responses.PortConnectedResponse.IOTYPE_CONTROLPLUS_MOTOR_XL;
 
 public class HubFragment extends Fragment implements PortObserver {
@@ -208,7 +209,8 @@ public class HubFragment extends Fragment implements PortObserver {
             return;
 
         int ioType = connectivityManager.getPortIOType(index, port);
-        if (ioType == IOTYPE_CONTROLPLUS_MOTOR_L || ioType == IOTYPE_CONTROLPLUS_MOTOR_XL) {
+        if (ioType == IOTYPE_CONTROLPLUS_MOTOR_L || ioType == IOTYPE_CONTROLPLUS_MOTOR_XL
+            || ioType == IOTYPE_CONTROLPLUS_MOTOR_SERVO) {
             Fragment fragment = getChildFragmentManager().findFragmentByTag("port" + port);
             if (fragment == null)
                 getChildFragmentManager().beginTransaction().add(R.id.list_ports,
