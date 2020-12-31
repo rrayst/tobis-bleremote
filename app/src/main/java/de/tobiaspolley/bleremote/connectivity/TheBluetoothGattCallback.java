@@ -14,6 +14,7 @@ import java.util.UUID;
 import de.tobiaspolley.bleremote.jobs.Disconnect;
 import de.tobiaspolley.bleremote.jobs.GotoAbsolutePositionCommand;
 import de.tobiaspolley.bleremote.jobs.Job;
+import de.tobiaspolley.bleremote.jobs.LedStatusCommand;
 import de.tobiaspolley.bleremote.jobs.PortInformationRequest;
 import de.tobiaspolley.bleremote.jobs.PortModeInformationRequest;
 import de.tobiaspolley.bleremote.jobs.ReadProperty;
@@ -210,6 +211,28 @@ public class TheBluetoothGattCallback extends BluetoothGattCallback {
                 characteristic.setWriteType(1);
                 check(gatt.writeCharacteristic(characteristic));
                 System.out.println("issued goto-absolute-position");
+                return;
+            }
+
+            if (job instanceof LedStatusCommand) {
+
+                LedStatusCommand mj = (LedStatusCommand) job;
+                byte channel = (byte) (mj.getMotor());
+                byte payload = (byte) (mj.isOn() ? 1 : 0x0) ;
+
+                characteristic.setValue(new byte[]{
+                        0x08 /* message length */,
+                        0x00 /* hub id */,
+                        (byte)0x81 /* message type: Port Output Command */,
+                        channel,
+                        ((LedStatusCommand) job).getStartupCompletion(),
+                        (byte)0x51 /* subcommand: WriteDirectModeData */,
+                        0x0, // mode
+                        payload // payload
+                });
+                characteristic.setWriteType(1);
+                check(gatt.writeCharacteristic(characteristic));
+                System.out.println("issued write-direct-mode-data");
                 return;
             }
 

@@ -5,6 +5,8 @@
     <string name="hub_caption_p">Hub %s</string>
 
     <string name="motor_caption">Motor</string>
+    <string name="led_caption">LED</string>
+    <string name="text_led">LED on</string>
 
     <string name="motor_caption_p">Port %s: %s</string>
     <string name="motor_description_l">L Motor</string>

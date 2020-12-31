@@ -11,6 +11,7 @@ Watch this app in action in [this demo video](https://youtu.be/2e1KSMcH22c).
 Sample Devices:
 * The LEGO® Liebherr Bagger R 9800 https://www.lego.com/en-us/product/liebherr-r-9800-excavator-42100 .
 * The LEGO® 6x6 Volvo Articulated Hauler https://www.lego.com/en-us/product/6x6-volvo-articulated-hauler-42114 .
+* The LEGO® Light https://www.lego.com/en-us/product/light-88005 .
 
 Huge thanks go to LEGO® at https://github.com/LEGO/lego-ble-wireless-protocol-docs where the Bluetooth communication protocol is documented.
 
